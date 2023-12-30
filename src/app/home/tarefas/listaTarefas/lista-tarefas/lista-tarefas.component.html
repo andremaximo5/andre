@@ -1,0 +1,34 @@
+<div class="po-wrapper">
+  <po-toolbar p-title="Tarefas" [p-profile-actions]="profileActions" ></po-toolbar>
+
+  <po-menu [p-menus]="menus"></po-menu>
+  <po-page-dynamic-search p-title= "Atividades:" po-text-center
+      (p-quick-search)="onQuickSearch($event)"
+      (p-change-disclaimers)="onChangeDisclaimers($event)"
+       p-title="Lista de Tarefas"
+    >
+    <div  *ngFor="let tarefa of listaTarefas" class="row gutters" >
+      <po-widget
+        class="po-lg-3 po-mt-2"
+        p-height="200"
+        p-primary-label="Task details "
+        (p-primary-action)= "modal.open()"
+        [p-title]= "tarefa.nome "
+      >
+        <div class="po-font-subtitle po-text-center" >
+          {{tarefa.observacao}}
+        </div>
+
+        <div class="po-text-center">
+          <b>{{tarefa.prazo}}</b>
+        </div>
+
+      </po-widget>
+      <po-modal #modal p-title="PO Modal">
+        <po-table [p-items]="[{nome: tarefa.nome, obsercacao: tarefa.observacao,
+                  prazo: tarefa.prazo, categoria: tarefa.categori }]"> </po-table>
+      </po-modal>
+  </div>
+  </po-page-dynamic-search>
+</div>
+
